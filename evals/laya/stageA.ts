@@ -12,6 +12,8 @@ const MODEL = process.env.EVAL_MODEL ?? "multilingual";
 const KEY = process.env.EVAL_KEY ?? "local-laya-key";
 const MAX_LEN = process.env.EVAL_MAX_LEN ?? "8192";
 const TAG = process.env.EVAL_TAG ? `.${process.env.EVAL_TAG}` : "";
+// EVAL_MODES=single skips the batched pass, which doubles the run time on slow servers.
+const MODES = (process.env.EVAL_MODES ?? "single,batched").split(",") as Array<"single" | "batched">;
 const tasks = JSON.parse(readFileSync(join(EVAL, "tasks.json"), "utf8"));
 const queries: Record<string, string> = JSON.parse(readFileSync(join(EVAL, "queries.json"), "utf8"));
 
@@ -89,7 +91,8 @@ for (const task of tasks) {
     ...random.map((p) => ({ path: p, label: "random" })),
   ];
   const single: Record<string, number> = {};
-  for (const x of labelled) single[x.path] = (await score(query, [item(root, x.path)]))[0]!;
+  if (MODES.includes("single"))
+    for (const x of labelled) single[x.path] = (await score(query, [item(root, x.path)]))[0]!;
   const batched: Record<string, number> = {};
   const order = shuffle(labelled);
   // Group exactly as the patched jg does: at most 16 items and 24 000 request bytes.
@@ -105,14 +108,14 @@ for (const task of tasks) {
     group.push(x);
   }
   if (group.length) groups.push(group);
-  for (const g of groups) {
+  if (MODES.includes("batched")) for (const g of groups) {
     const s = await score(query, g.map((x) => item(root, x.path)));
     g.forEach((x, j) => (batched[x.path] = s[j]!));
   }
   for (const x of labelled) rows.push({ task: task.id, ...x, single: single[x.path], batched: batched[x.path] });
   const pick = (label: string, mode: "single" | "batched") =>
     labelled.filter((x) => x.label === label).map((x) => (mode === "single" ? single : batched)[x.path]!);
-  for (const mode of ["single", "batched"] as const) {
+  for (const mode of MODES) {
     const g = pick("gold", mode), s = pick("sibling", mode), r = pick("random", mode);
     console.log(
       `${task.id.padEnd(34)} ${mode.padEnd(7)} AUC gold-vs-sibling=${auc(g, s).toFixed(2)} gold-vs-random=${auc(g, r).toFixed(2)}` +
@@ -122,7 +125,7 @@ for (const task of tasks) {
   }
 }
 writeFileSync(join(EVAL, `stageA${TAG}.json`), JSON.stringify(rows, null, 1));
-for (const mode of ["single", "batched"] as const) {
+for (const mode of MODES) {
   const v = (label: string) => rows.filter((r) => r.label === label).map((r) => r[mode] as number);
   console.log(`POOLED ${mode}: AUC gold-vs-sibling=${auc(v("gold"), v("sibling")).toFixed(3)} gold-vs-random=${auc(v("gold"), v("random")).toFixed(3)}`);
 }

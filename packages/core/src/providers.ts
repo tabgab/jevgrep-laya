@@ -40,6 +40,8 @@ export const providers = {
     // reads 16,384 tokens, so no token budget is sent. The Mac (MLX) helper answers one
     // question at a time, so a 16-question batch can take minutes.
     navigationBatch: { items: 16, bytes: 24_000 },
+    // Node's fetch waits at most 300 s for response headers; four questions stay well inside.
+    questionsPerCall: 4,
     concurrency: 2,
     timeoutMs: 1_800_000,
   },

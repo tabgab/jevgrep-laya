@@ -42,6 +42,7 @@ export function createEvaluator(options: {
   const preset = providers[options.provider];
   const baseURL = providerBaseURL(options.provider);
   const maxLen = "maxLen" in preset ? preset.maxLen : undefined;
+  const questionsPerCall = "questionsPerCall" in preset ? preset.questionsPerCall : undefined;
   const timeoutMs =
     options.timeoutMs ?? ("timeoutMs" in preset ? preset.timeoutMs : undefined) ?? 15_000;
   const concurrency =
@@ -85,35 +86,66 @@ export function createEvaluator(options: {
       // The SDK sends only model, state and questions; Laya reads its token budget from the body.
       if (maxLen !== undefined && typeof init?.body === "string")
         init = { ...init, body: JSON.stringify({ ...JSON.parse(init.body), max_len: maxLen }) };
-      if (requests >= (options.requestLimit ?? 50_000))
-        throw new EvaluationFailure("request-limit");
-      requests++;
-      const response = await (options.fetch ?? fetch)(input, init);
-      // Diagnostic trace of raw provider traffic for provider evaluation; off unless set.
-      if (process.env.JG_TRACE_FILE)
-        await appendFile(
-          process.env.JG_TRACE_FILE,
-          JSON.stringify({
-            status: response.status,
-            request: typeof init?.body === "string" ? JSON.parse(init.body) : null,
-            response: await response.clone().text(),
-          }) + "\n",
-        );
-      if (response.status === 429) {
-        const raw = response.headers.get("retry-after");
-        const seconds = raw === null ? NaN : Number(raw);
-        const date = raw === null ? NaN : Date.parse(raw);
-        const wait =
-          Number.isFinite(seconds) && seconds >= 0
-            ? seconds * 1000
-            : Number.isFinite(date)
-              ? Math.max(0, date - Date.now())
-              : 1000;
-        cooldownUntil = Math.max(cooldownUntil, Date.now() + wait);
+      if (questionsPerCall === undefined || typeof init?.body !== "string")
+        return send(input, init);
+      // A serial server answers only after every question is done, which can outlast the
+      // client's header timeout. Each question is scored independently, so split the request.
+      const body = JSON.parse(init.body) as { questions: Record<string, unknown> };
+      const ids = Object.keys(body.questions);
+      if (ids.length <= questionsPerCall) return send(input, init);
+      const answers: Record<string, unknown> = {};
+      const usage = { input_tokens: 0, output_tokens: 0 };
+      let merged: Record<string, unknown> = {};
+      let last: Response | undefined;
+      for (let start = 0; start < ids.length; start += questionsPerCall) {
+        const part = ids.slice(start, start + questionsPerCall);
+        const questions = Object.fromEntries(part.map((id) => [id, body.questions[id]]));
+        last = await send(input, { ...init, body: JSON.stringify({ ...body, questions }) });
+        if (!last.ok) return last;
+        const json = (await last.json()) as {
+          answers?: Record<string, unknown>;
+          usage?: { input_tokens?: number; output_tokens?: number };
+        };
+        Object.assign(answers, json.answers);
+        usage.input_tokens += json.usage?.input_tokens ?? 0;
+        usage.output_tokens += json.usage?.output_tokens ?? 0;
+        merged = json;
       }
-      return response;
+      return new Response(JSON.stringify({ ...merged, answers, usage }), {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      });
     },
   });
+  async function send(input: Parameters<typeof fetch>[0], init: RequestInit | undefined) {
+    assertActive();
+    if (requests >= (options.requestLimit ?? 50_000)) throw new EvaluationFailure("request-limit");
+    requests++;
+    const response = await (options.fetch ?? fetch)(input, init);
+    // Diagnostic trace of raw provider traffic for provider evaluation; off unless set.
+    if (process.env.JG_TRACE_FILE)
+      await appendFile(
+        process.env.JG_TRACE_FILE,
+        JSON.stringify({
+          status: response.status,
+          request: typeof init?.body === "string" ? JSON.parse(init.body) : null,
+          response: await response.clone().text(),
+        }) + "\n",
+      );
+    if (response.status === 429) {
+      const raw = response.headers.get("retry-after");
+      const seconds = raw === null ? NaN : Number(raw);
+      const date = raw === null ? NaN : Date.parse(raw);
+      const wait =
+        Number.isFinite(seconds) && seconds >= 0
+          ? seconds * 1000
+          : Number.isFinite(date)
+            ? Math.max(0, date - Date.now())
+            : 1000;
+      cooldownUntil = Math.max(cooldownUntil, Date.now() + wait);
+    }
+    return response;
+  }
   return {
     navigationBatch: "navigationBatch" in preset ? preset.navigationBatch : undefined,
     get cacheHits() {
