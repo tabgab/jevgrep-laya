@@ -50,6 +50,7 @@ export type SearchInput = {
 };
 export type Evaluator = {
   readonly requests: number;
+  readonly navigationBatch?: { readonly items: number; readonly bytes: number };
   readonly cacheHits?: number;
   readonly cacheIssues?: Array<{ kind: string; count: number }>;
   evaluate(

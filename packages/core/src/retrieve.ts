@@ -80,6 +80,7 @@ export async function retrieve(input: SearchInput, evaluator: Evaluator): Promis
     const results: Array<{ item: NavigationItem; score: number }> = [];
     const batches: NavigationItem[][] = [];
     let batch: NavigationItem[] = [];
+    const limit = evaluator.navigationBatch ?? { items: 128, bytes: 38_000 };
     for (const item of items) {
       if (
         Buffer.byteLength(JSON.stringify(navigationRequest(input.query, [item], anchor))) > 38_000
@@ -89,10 +90,10 @@ export async function retrieve(input: SearchInput, evaluator: Evaluator): Promis
       }
       if (
         batch.length &&
-        (batch.length >= 128 ||
+        (batch.length >= limit.items ||
           Buffer.byteLength(
             JSON.stringify(navigationRequest(input.query, [...batch, item], anchor)),
-          ) > 38_000)
+          ) > limit.bytes)
       ) {
         batches.push(batch);
         batch = [];

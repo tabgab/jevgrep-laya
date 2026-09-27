@@ -1,9 +1,10 @@
 import { APICallError, experimental_evaluate as evaluate } from "ai";
 import { createTypeSafeAi } from "@ai-sdk/typesafe-ai";
-import { providers, type ProviderId } from "./providers";
+import { providerBaseURL, providers, type ProviderId } from "./providers";
 import { type createEvaluationCache, type CacheInput } from "./cache";
 import { setTimeout as delay } from "node:timers/promises";
 import { stripVTControlCharacters } from "node:util";
+import { appendFile } from "node:fs/promises";
 
 export type EvaluationRequest = {
   state: Parameters<typeof evaluate>[0]["state"];
@@ -39,7 +40,12 @@ export function createEvaluator(options: {
   concurrency?: number;
 }) {
   const preset = providers[options.provider];
-  const concurrency = options.concurrency ?? 32;
+  const baseURL = providerBaseURL(options.provider);
+  const maxLen = "maxLen" in preset ? preset.maxLen : undefined;
+  const timeoutMs =
+    options.timeoutMs ?? ("timeoutMs" in preset ? preset.timeoutMs : undefined) ?? 15_000;
+  const concurrency =
+    options.concurrency ?? ("concurrency" in preset ? preset.concurrency : undefined) ?? 32;
   if (!Number.isSafeInteger(concurrency) || concurrency < 1)
     throw new Error("Concurrency must be a positive integer");
   let requests = 0;
@@ -73,13 +79,26 @@ export function createEvaluator(options: {
   }
   const provider = createTypeSafeAi({
     apiKey: options.apiKey,
-    baseURL: preset.baseURL,
+    baseURL,
     fetch: async (input, init) => {
       assertActive();
+      // The SDK sends only model, state and questions; Laya reads its token budget from the body.
+      if (maxLen !== undefined && typeof init?.body === "string")
+        init = { ...init, body: JSON.stringify({ ...JSON.parse(init.body), max_len: maxLen }) };
       if (requests >= (options.requestLimit ?? 50_000))
         throw new EvaluationFailure("request-limit");
       requests++;
       const response = await (options.fetch ?? fetch)(input, init);
+      // Diagnostic trace of raw provider traffic for provider evaluation; off unless set.
+      if (process.env.JG_TRACE_FILE)
+        await appendFile(
+          process.env.JG_TRACE_FILE,
+          JSON.stringify({
+            status: response.status,
+            request: typeof init?.body === "string" ? JSON.parse(init.body) : null,
+            response: await response.clone().text(),
+          }) + "\n",
+        );
       if (response.status === 429) {
         const raw = response.headers.get("retry-after");
         const seconds = raw === null ? NaN : Number(raw);
@@ -96,6 +115,7 @@ export function createEvaluator(options: {
     },
   });
   return {
+    navigationBatch: "navigationBatch" in preset ? preset.navigationBatch : undefined,
     get cacheHits() {
       return cacheHits;
     },
@@ -115,7 +135,7 @@ export function createEvaluator(options: {
         namespace: {
           model: preset.model,
           provider: options.provider,
-          endpoint: preset.baseURL,
+          endpoint: baseURL,
           protocol: "typesafe-ai-3.0.8",
           policyVersion: options.policyVersion ?? "1",
           parserVersion: "cpython-3.11.3-pyodide-0.25.1-ts-5.9.3",
@@ -164,7 +184,7 @@ export function createEvaluator(options: {
               abortSignal: AbortSignal.any([
                 options.signal,
                 authenticationFailure.signal,
-                AbortSignal.timeout(options.timeoutMs ?? 15_000),
+                AbortSignal.timeout(timeoutMs),
               ]),
             });
             const scores = Object.fromEntries(
@@ -214,7 +234,7 @@ export function createEvaluator(options: {
               const description = diagnostic
                 ? `HTTP ${diagnostic.statusCode}${diagnostic.message ? `: ${diagnostic.message}` : ""}`
                 : name === "TimeoutError"
-                  ? `Request timed out after ${options.timeoutMs ?? 15_000} ms`
+                  ? `Request timed out after ${timeoutMs} ms`
                   : APICallError.isInstance(error) && error.statusCode === undefined
                     ? "Network request failed (connection unavailable or reset)"
                     : "Invalid or incomplete provider response";
