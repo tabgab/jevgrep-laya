@@ -9,7 +9,9 @@ packets, and Laya reverses that goal.
 
 - jevgrep at commit `76474fd` (branch `laya-provider`), with the `laya` provider preset.
 - Laya 0.3.21, checkpoint `laya-multilingual` (revision `55cf4c4`), `max_len` 8,192 tokens,
-  served by `laya.serve` on an Apple GPU (MPS).
+  served by `laya.serve` on an Apple GPU (MPS). This is the only checkpoint tested. It is the
+  only one that reads 8,192 tokens. The `laya` (512) and `laya-typed-decisions` (1,024)
+  checkpoints would cut jevgrep's states even shorter.
 - The ten SWE-bench tasks of jevgrep's own benchmark cohort. Ground truth: the files that
   the official fix (`patch`) and its tests (`test_patch`) change.
 - Queries: one per task, written from the issue text only and following
@@ -52,8 +54,9 @@ notes one by one (`doc/en/announce/release-*.rst`) and admitted them. The planne
 other eight tasks were stopped: the two smallest repositories already show the result, and
 the larger ones would take hours each at this rate.
 
-For requests-1142, jevgrep with Jev returned **6 files in 6,880 bytes** on the same query
-(`specs/done/jevgrep/assets/cpython-confirmation.md`). Laya returned **76 files in
+For requests-1142, a recorded jevgrep run with Jev returned **6 files in 6,880 bytes** on the
+same query (`specs/done/jevgrep/assets/cpython-confirmation.md`). That run used an earlier
+jevgrep build and is not a paired live run. Laya returned **76 files in
 391,452 bytes**, which is 57 times more output. The gold file is in the output, but so is
 two thirds of the repository.
 
@@ -72,6 +75,10 @@ no ranking signal that this baseline lacks.
 3. **Later stages are better but cannot help.** On the smoke test, the source-excerpt question
    separated the files clearly (0.22 against 0.8). But the file list comes from the navigation
    stage, so the excerpt stage cannot shorten it.
+
+4. **Ruled out: instruction truncation.** Laya fits each question's text into `head_max_len`
+   (256 tokens on this checkpoint). jevgrep's longest instruction is 105 tokens (measured with
+   Laya's tokenizer over all 1,328 questions of the requests-1142 run), so no instruction is cut.
 
 ## Patch notes
 
