@@ -1,0 +1,22 @@
+psf__requests-1142                 single  AUC gold-vs-sibling=0.75 gold-vs-random=0.75  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.69/0.54/0.60
+psf__requests-1142                 batched AUC gold-vs-sibling=0.85 gold-vs-random=0.70  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.74/0.66/0.66
+matplotlib__matplotlib-26466       single  AUC gold-vs-sibling=0.30 gold-vs-random=0.35  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.81/0.88/0.85
+matplotlib__matplotlib-26466       batched AUC gold-vs-sibling=0.45 gold-vs-random=0.40  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.82/0.84/0.86
+django__django-15629               single  AUC gold-vs-sibling=0.67 gold-vs-random=0.80  pass>0.25: gold 6/6 sib 10/10 rnd 10/10  mean g/s/r 0.91/0.89/0.84
+django__django-15629               batched AUC gold-vs-sibling=0.57 gold-vs-random=0.73  pass>0.25: gold 6/6 sib 10/10 rnd 10/10  mean g/s/r 0.91/0.90/0.88
+scikit-learn__scikit-learn-13124   single  AUC gold-vs-sibling=0.67 gold-vs-random=0.50  pass>0.25: gold 2/2 sib 6/6 rnd 10/10  mean g/s/r 0.88/0.86/0.86
+scikit-learn__scikit-learn-13124   batched AUC gold-vs-sibling=0.58 gold-vs-random=0.60  pass>0.25: gold 2/2 sib 6/6 rnd 10/10  mean g/s/r 0.88/0.86/0.86
+astropy__astropy-13579             single  AUC gold-vs-sibling=1.00 gold-vs-random=0.65  pass>0.25: gold 2/2 sib 1/1 rnd 10/10  mean g/s/r 0.94/0.89/0.92
+astropy__astropy-13579             batched AUC gold-vs-sibling=1.00 gold-vs-random=0.90  pass>0.25: gold 2/2 sib 1/1 rnd 10/10  mean g/s/r 0.94/0.92/0.91
+sympy__sympy-16792                 single  AUC gold-vs-sibling=0.80 gold-vs-random=0.50  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.91/0.87/0.90
+sympy__sympy-16792                 batched AUC gold-vs-sibling=0.50 gold-vs-random=0.40  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.91/0.90/0.92
+sphinx-doc__sphinx-8638            single  AUC gold-vs-sibling=0.70 gold-vs-random=0.55  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.89/0.84/0.87
+sphinx-doc__sphinx-8638            batched AUC gold-vs-sibling=0.50 gold-vs-random=0.75  pass>0.25: gold 2/2 sib 10/10 rnd 10/10  mean g/s/r 0.89/0.88/0.87
+pytest-dev__pytest-6197            single  AUC gold-vs-sibling=0.53 gold-vs-random=0.83  pass>0.25: gold 3/3 sib 10/10 rnd 10/10  mean g/s/r 0.95/0.94/0.92
+pytest-dev__pytest-6197            batched AUC gold-vs-sibling=0.60 gold-vs-random=0.67  pass>0.25: gold 3/3 sib 10/10 rnd 10/10  mean g/s/r 0.95/0.94/0.94
+pylint-dev__pylint-4604            single  AUC gold-vs-sibling=0.50 gold-vs-random=0.67  pass>0.25: gold 3/3 sib 10/10 rnd 10/10  mean g/s/r 0.84/0.90/0.82
+pylint-dev__pylint-4604            batched AUC gold-vs-sibling=0.53 gold-vs-random=0.80  pass>0.25: gold 3/3 sib 10/10 rnd 10/10  mean g/s/r 0.93/0.93/0.91
+pydata__xarray-3305                single  AUC gold-vs-sibling=0.40 gold-vs-random=0.67  pass>0.25: gold 3/3 sib 10/10 rnd 9/10  mean g/s/r 0.79/0.82/0.60
+pydata__xarray-3305                batched AUC gold-vs-sibling=0.33 gold-vs-random=0.40  pass>0.25: gold 3/3 sib 10/10 rnd 10/10  mean g/s/r 0.79/0.85/0.82
+POOLED single: AUC gold-vs-sibling=0.591 gold-vs-random=0.611
+POOLED batched: AUC gold-vs-sibling=0.574 gold-vs-random=0.603
