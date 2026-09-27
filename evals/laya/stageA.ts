@@ -5,7 +5,13 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from "
 import { join, dirname, extname } from "node:path";
 
 const EVAL = process.env.LAYA_EVAL_DATA ?? join(import.meta.dir, "results");
-const URL = "http://127.0.0.1:8000/v1/systemone";
+// The endpoint defaults to laya-serve. Set EVAL_URL, EVAL_MODEL, EVAL_KEY and EVAL_MAX_LEN
+// ("" sends none) for another Jev-compatible server, and EVAL_TAG to name the output file.
+const URL = process.env.EVAL_URL ?? "http://127.0.0.1:8000/v1/systemone";
+const MODEL = process.env.EVAL_MODEL ?? "multilingual";
+const KEY = process.env.EVAL_KEY ?? "local-laya-key";
+const MAX_LEN = process.env.EVAL_MAX_LEN ?? "8192";
+const TAG = process.env.EVAL_TAG ? `.${process.env.EVAL_TAG}` : "";
 const tasks = JSON.parse(readFileSync(join(EVAL, "tasks.json"), "utf8"));
 const queries: Record<string, string> = JSON.parse(readFileSync(join(EVAL, "queries.json"), "utf8"));
 
@@ -49,8 +55,13 @@ async function score(query: string, items: NavigationItem[]): Promise<number[]> 
   );
   const response = await fetch(URL, {
     method: "POST",
-    headers: { "content-type": "application/json", authorization: "Bearer local-laya-key" },
-    body: JSON.stringify({ model: "multilingual", max_len: 8192, state: request.state, questions }),
+    headers: { "content-type": "application/json", authorization: `Bearer ${KEY}` },
+    body: JSON.stringify({
+      model: MODEL,
+      ...(MAX_LEN ? { max_len: Number(MAX_LEN) } : {}),
+      state: request.state,
+      questions,
+    }),
   });
   if (!response.ok) throw new Error(`${response.status} ${await response.text()}`);
   const body = (await response.json()) as { answers: Record<string, { noul: number }> };
@@ -110,7 +121,7 @@ for (const task of tasks) {
     );
   }
 }
-writeFileSync(join(EVAL, "stageA.json"), JSON.stringify(rows, null, 1));
+writeFileSync(join(EVAL, `stageA${TAG}.json`), JSON.stringify(rows, null, 1));
 for (const mode of ["single", "batched"] as const) {
   const v = (label: string) => rows.filter((r) => r.label === label).map((r) => r[mode] as number);
   console.log(`POOLED ${mode}: AUC gold-vs-sibling=${auc(v("gold"), v("sibling")).toFixed(3)} gold-vs-random=${auc(v("gold"), v("random")).toFixed(3)}`);

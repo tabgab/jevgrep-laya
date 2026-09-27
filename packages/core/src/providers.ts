@@ -32,14 +32,30 @@ export const providers = {
     concurrency: 4,
     timeoutMs: 120_000,
   },
+  openjev: {
+    label: "OpenJev (self-hosted helper)",
+    baseURL: "http://localhost:3000/v1",
+    model: "openjev",
+    // Same batch limits as laya, so both self-hosted models see identical requests. OpenJev
+    // reads 16,384 tokens, so no token budget is sent. The Mac (MLX) helper answers one
+    // question at a time, so a 16-question batch can take minutes.
+    navigationBatch: { items: 16, bytes: 24_000 },
+    concurrency: 2,
+    timeoutMs: 1_800_000,
+  },
 } as const;
 
 export type ProviderId = keyof typeof providers;
 
-// A self-hosted Laya server can run anywhere, so its endpoint alone may be overridden.
+// Self-hosted servers can run anywhere, so their endpoints alone may be overridden.
+const endpointOverrides: Partial<Record<ProviderId, string>> = {
+  laya: "JG_LAYA_URL",
+  openjev: "JG_OPENJEV_URL",
+};
 export function providerBaseURL(provider: ProviderId): string {
-  if (provider === "laya" && process.env.JG_LAYA_URL) return process.env.JG_LAYA_URL.replace(/\/+$/, "");
-  return providers[provider].baseURL;
+  const variable = endpointOverrides[provider];
+  const override = variable ? process.env[variable] : undefined;
+  return override ? override.replace(/\/+$/, "") : providers[provider].baseURL;
 }
 
 export function isProviderId(value: unknown): value is ProviderId {
