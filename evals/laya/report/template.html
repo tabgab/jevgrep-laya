@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Laya vs OpenJev as Jev replacements</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+  :root {
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #8a8984; --rule: #e6e5e0; --surface: #f6f5f2;
+    --openjev: #2a78d6; --laya: #eb6834; --good: #1a7f37; --warn: #9a6700; --bad: #c62828;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); font-size: 10.5pt;
+         line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 22pt; margin: 0 0 2mm; letter-spacing: -0.3px; }
+  h2 { font-size: 14.5pt; margin: 0 0 3mm; letter-spacing: -0.2px; }
+  h3 { font-size: 11pt; margin: 4mm 0 1.5mm; }
+  p { margin: 0 0 2.5mm; }
+  .sub { color: var(--ink2); font-size: 11pt; margin-bottom: 6mm; }
+  .page { page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+  .kicker { text-transform: uppercase; letter-spacing: 1px; font-size: 8pt; color: var(--muted); margin-bottom: 1mm; }
+  .note { color: var(--ink2); font-size: 9pt; }
+  .fig { margin: 2mm 0 1mm; }
+  .fig img { width: 100%; display: block; }
+  .row { display: flex; gap: 6mm; }
+  .row > div { flex: 1; min-width: 0; }
+  .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: 0; }
+
+  /* Verdict matrix */
+  .matrix { display: grid; grid-template-columns: 34mm 1fr 1fr; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+  .matrix > div { padding: 3.2mm 3.5mm; border-top: 1px solid var(--rule); }
+  .matrix .hd { background: var(--surface); font-weight: 700; border-top: none; }
+  .matrix .usecase { background: var(--surface); font-weight: 700; }
+  .matrix .usecase span { display: block; font-weight: 400; color: var(--ink2); font-size: 9pt; margin-top: 1mm; }
+  .chip { display: inline-block; font-weight: 700; font-size: 9.5pt; padding: 0.8mm 2.4mm; border-radius: 99px; margin-bottom: 1.5mm; }
+  .chip.good { color: var(--good); background: #e8f4ec; }
+  .chip.warn { color: var(--warn); background: #fbf2dc; }
+  .chip.bad { color: var(--bad); background: #fbe9e9; }
+  .matrix p { font-size: 9.5pt; margin: 0; }
+
+  /* Stat tiles */
+  .tiles { display: flex; gap: 4mm; margin: 4mm 0; }
+  .tile { flex: 1; border: 1px solid var(--rule); border-radius: 6px; padding: 3mm 3.5mm; }
+  .tile .big { font-size: 20pt; font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; }
+  .tile .lbl { font-size: 8.8pt; color: var(--ink2); margin-top: 1mm; }
+
+  /* Flow diagrams */
+  .flow { display: flex; align-items: stretch; gap: 0; margin: 2mm 0 4mm; }
+  .step { flex: 1; border: 1px solid var(--rule); border-radius: 6px; padding: 2.5mm; font-size: 8.8pt; background: #fff; }
+  .step b { display: block; font-size: 9.3pt; margin-bottom: 0.8mm; }
+  .step.model { border: 1.5px solid var(--ink); background: var(--surface); }
+  .arrow { width: 7mm; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13pt; }
+  .tag { display: inline-block; font-size: 7.5pt; font-weight: 700; color: #fff; background: var(--ink); border-radius: 3px; padding: 0 1.5mm; margin-top: 1mm; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9.3pt; margin: 2mm 0 3mm; }
+  th, td { text-align: left; padding: 1.6mm 2mm; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { color: var(--ink2); font-weight: 600; font-size: 8.8pt; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  ul { margin: 0 0 2.5mm 4.5mm; padding: 0; }
+  li { margin-bottom: 1mm; }
+  code { font-family: Menlo, monospace; font-size: 8.6pt; background: var(--surface); padding: 0 1mm; border-radius: 2px; }
+  .callout { border-left: 3px solid var(--ink); background: var(--surface); padding: 2.5mm 3.5mm; margin: 3mm 0; font-size: 9.5pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: verdict -->
+<section class="page">
+  <div class="kicker">Evaluation summary · {{date}}</div>
+  <h1>Laya vs OpenJev as a local replacement for Jev</h1>
+  <p class="sub">Can either open model do the decision work that jevgrep uses Jev for, on your own machine,
+    for two jobs: finding the right code in a repository, and picking the right tools for an LLM?</p>
+
+  <div class="matrix">
+    <div class="hd">Use case</div>
+    <div class="hd"><span class="swatch" style="background:var(--laya)"></span>Laya</div>
+    <div class="hd"><span class="swatch" style="background:var(--openjev)"></span>OpenJev</div>
+
+    <div class="usecase">a · Find the right code<span>jevgrep: search a repo, return the relevant files and excerpts</span></div>
+    <div><span class="chip bad">✕ Not suitable</span>
+      <p>Marks almost every file as relevant. jevgrep returned 76 of 113 files (391 KB) where Jev returned 6 files (6.9 KB).</p></div>
+    <div><span class="chip good">✓ Suitable</span>
+      <p>Separates relevant from irrelevant files well (AUC {{oj_auc_sib}}). Returned 5 files (9.4 KB) containing the code the real fix changes. <b>Needs a GPU server:</b> 3 h 12 min for one search on a Mac.</p></div>
+
+    <div class="usecase">b · Pick the right tools<span>shortlist tools from a fixed set of 20 before the LLM runs</span></div>
+    <div><span class="chip warn">! Usable, no better than keywords</span>
+      <p>{{laya_top1}}% right on the first pick, {{laya_top3}}% in the top 3, in 0.04 s. Plain keyword search scored {{bm25_top1}}% and {{bm25_top3}}%.</p></div>
+    <div>{{oj_tool_chip}}
+      <p>{{oj_top1}}% right on the first pick, {{oj_top3}}% in the top 3. About {{oj_secs}} s per request on a Mac; the model card reports about 80 ms per short decision on an H100.</p></div>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="big" style="color:var(--laya)">{{laya_auc_sib}}</div><div class="lbl">Laya: how well it ranks the right files above others (0.5 = coin flip, 1.0 = perfect)</div></div>
+    <div class="tile"><div class="big" style="color:var(--openjev)">{{oj_auc_sib}}</div><div class="lbl">OpenJev: the same measure, on the same 214 files</div></div>
+    <div class="tile"><div class="big">{{prompt_cut}}%</div><div class="lbl">smaller tool prompt when the LLM gets the top 3 tools instead of all 20</div></div>
+  </div>
+
+  <div class="callout"><b>Bottom line.</b> OpenJev is the only one of the two that does jevgrep's job. It needs a GPU server to be practical.
+    Laya is fast and fine for picking among a handful of tools, but on this benchmark it did no better than keyword search, and it cannot judge source code.</div>
+  <p class="note">No Jev API key was used. "Jev" figures come from a run recorded in the jevgrep repository. All tests ran on an Apple M3 Max (36 GB).</p>
+</section>
+
+<!-- PAGE 2: how it works -->
+<section class="page">
+  <div class="kicker">Background</div>
+  <h2>Where the decision model sits</h2>
+  <p>Jev, Laya and OpenJev are <b>decision models</b>: they do not write text. You give them a situation and a
+    question, and they return a probability (yes/no) or a ranked choice. Both jobs below use that one skill.</p>
+
+  <h3>a · Finding code with jevgrep</h3>
+  <div class="flow">
+    <div class="step"><b>Question</b>"Where is the Content-Length header set for GET requests?"</div>
+    <div class="arrow">→</div>
+    <div class="step model"><b>1 · Navigate</b>For each folder and file: "worth reading?" Files scoring above 0.25 are kept.<br><span class="tag">MODEL</span></div>
+    <div class="arrow">→</div>
+    <div class="step model"><b>2 · Excerpt</b>For each function in kept files: "does this block show the behaviour?"<br><span class="tag">MODEL</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>Packet</b>Short list of files + source excerpts, handed to the coding agent.</div>
+  </div>
+  <p>The whole value is in step 1: <b>a small packet saves the coding agent's tokens.</b> A model that says
+    "yes" to everything turns the packet into a dump of the repository.</p>
+
+  <h3>b · Picking tools for an LLM</h3>
+  <div class="flow">
+    <div class="step"><b>User request</b>"Find the area of a triangle with sides 3, 4 and 5."</div>
+    <div class="arrow">→</div>
+    <div class="step model"><b>Rank tools</b>One choice question over 20 tool names and descriptions → a probability per tool.<br><span class="tag">MODEL</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>Shortlist</b>Keep the top 3 tools.</div>
+    <div class="arrow">→</div>
+    <div class="step"><b>LLM</b>Gets 3 tool definitions instead of 20: a shorter prompt and fewer wrong calls.</div>
+  </div>
+
+  <h3>What was measured</h3>
+  <table>
+    <tr><th>Test</th><th>Data</th><th>Question answered</th></tr>
+    <tr><td>a1 · File relevance</td><td>10 real SWE-bench bugs; 27 files the fix or its tests changed, 187 other files</td><td>Does the model score the right files higher?</td></tr>
+    <tr><td>a2 · Full search</td><td>jevgrep end to end on the <code>psf/requests</code> bug (both models) and <code>pytest</code> (Laya)</td><td>What does the coding agent actually receive?</td></tr>
+    <tr><td>b · Tool choice</td><td>200 requests from the Berkeley Function Calling Leaderboard, 20 tools each</td><td>Is the right tool first, or in the top 3 or 5?</td></tr>
+  </table>
+</section>
+
+<!-- PAGE 3: a1 -->
+<section class="page">
+  <div class="kicker">Use case a · finding code</div>
+  <h2>Laya keeps everything. OpenJev keeps the right files.</h2>
+  <p>Each file was scored with jevgrep's own question: "does this file help investigate the requested behaviour?"
+    jevgrep keeps a file when the score is above 0.25.</p>
+  <div class="fig"><img src="fig_admit.svg"></div>
+  <p>Laya kept <b>186 of the 187 unrelated files</b>, so it filters nothing. OpenJev kept 85% of the files the fix or its tests changed and
+    only <b>13% of files in the same folders and 2% of random files</b>. The 4 fix files it missed were secondary
+    ones: two Django database backends, a pytest test file and a pylint constants file.</p>
+
+  <h3>Is it consistent across projects?</h3>
+  <div class="fig" style="width:82%;margin-left:auto;margin-right:auto"><img src="fig_auc.svg"></div>
+  <p>AUC is the chance that a random fix file scores higher than a random other file. 0.5 is a coin flip.
+    OpenJev scores 0.95 or higher on 8 of 10 projects and at least 0.77 on all of them. Laya ranges from 0.33 to
+    0.75, close to a coin flip (pooled against same-folder files: {{laya_auc_sib}} for Laya, {{oj_auc_sib}} for OpenJev).</p>
+</section>
+
+<!-- PAGE 4: a2 -->
+<section class="page">
+  <div class="kicker">Use case a · finding code</div>
+  <h2>What the coding agent actually receives</h2>
+  <p>jevgrep run end to end on the <code>psf/requests</code> bug "GET requests always send a Content-Length header",
+    with the query a coding agent really used. The Jev row is a run recorded in the jevgrep repository.</p>
+  <div class="row">
+    <div class="fig"><img src="fig_files.svg"></div>
+    <div class="fig"><img src="fig_size.svg"></div>
+  </div>
+  <table>
+    <tr><th>Model</th><th class="num">Files</th><th class="num">Output</th><th>Contains the code the fix changes?</th><th class="num">Time (Mac)</th></tr>
+    <tr><td><span class="swatch" style="background:var(--laya)"></span>Laya</td><td class="num">76 of 113</td><td class="num">391 KB</td><td>Yes, buried in two thirds of the repo</td><td class="num">12 min</td></tr>
+    <tr><td><span class="swatch" style="background:var(--openjev)"></span>OpenJev</td><td class="num">5</td><td class="num">9.4 KB</td><td>Yes: <code>prepare_content_length</code> in <code>models.py</code></td><td class="num">3 h 12 min</td></tr>
+    <tr><td><span class="swatch" style="background:#8a8984"></span>Jev (recorded)</td><td class="num">6</td><td class="num">6.9 KB</td><td>Yes: <code>models.py</code> source blocks</td><td class="num">–</td></tr>
+  </table>
+  <p>On the larger <code>pytest</code> repository, Laya returned <b>410 of 449 files (3.8 MB)</b>, including
+    116 release notes. OpenJev was not run there: on this Mac each large repository would take many hours.</p>
+  <div class="callout">OpenJev's packet is the same kind of packet Jev produces: a handful of files centred on the right
+    function. Laya's output is too large for an agent to use and would raise its cost instead of lowering it.</div>
+</section>
+
+<!-- PAGE 5: b -->
+<section class="page">
+  <div class="kicker">Use case b · picking tools</div>
+  <h2>{{tools_headline}}</h2>
+  <p>200 requests from the Berkeley Function Calling Leaderboard. Each request came with 20 tools: its own 2 to 4
+    candidates (often near-misses from the same domain, such as two triangle calculators) plus distractors from
+    other requests, in shuffled order. Each model ranked the 20 tools once.</p>
+  <div class="fig"><img src="fig_tools.svg"></div>
+  <div class="tiles">
+    <div class="tile"><div class="big">{{laya_own}}% / {{oj_own}}%</div><div class="lbl">Laya / OpenJev: picked the right tool among the near-miss candidates only (random: {{rand_own}}%)</div></div>
+    <div class="tile"><div class="big">{{schema_all}} → {{schema_top3}} KB</div><div class="lbl">tool definitions sent to the LLM: all 20 tools vs the top 3</div></div>
+    <div class="tile"><div class="big">0.04 s / {{oj_secs}} s</div><div class="lbl">Laya / OpenJev time per request on the Mac</div></div>
+  </div>
+  <h3>How to read this</h3>
+  <ul>
+    <li><b>Top 3 is the number that matters for shortlisting.</b> If the right tool is in the top 3, the LLM can still pick it.</li>
+    <li>{{tools_reading}}</li>
+    <li><b>Laya squeezes the tool list.</b> It fits all 20 options into 192 tokens (English checkpoint), so each tool
+      keeps only about 8 tokens of its name and description. That limits it once tools get similar or numerous.
+      Laya's own documentation recommends its shortlist mode above about 20 options.</li>
+    <li><b>This benchmark is easy for keywords.</b> The requests share many words with the tool descriptions, which is why
+      BM25 does so well. Requests worded differently from the tool descriptions would favour the model that understands meaning.</li>
+  </ul>
+</section>
+
+<!-- PAGE 6: practicality and limits -->
+<section class="page">
+  <div class="kicker">Practicality</div>
+  <h2>What it takes to run them</h2>
+  <table>
+    <tr><th></th><th><span class="swatch" style="background:var(--laya)"></span>Laya</th><th><span class="swatch" style="background:var(--openjev)"></span>OpenJev</th></tr>
+    <tr><td>Model size</td><td>322M–421M parameters (3 checkpoints)</td><td>27B parameters; tested as the 4-bit Apple build (14 GB)</td></tr>
+    <tr><td>Reads up to</td><td>512–8,192 tokens, depending on checkpoint</td><td>16,384 tokens</td></tr>
+    <tr><td>Speed on this Mac</td><td>0.02–0.04 s per tool choice; about 2.5 s per jevgrep request</td><td>about 150 tokens/s: 4 s per tool choice, 25–40 s per file question</td></tr>
+    <tr><td>Speed on a GPU server</td><td>33 ms per question (model card, T4 GPU)</td><td>227 ms for a 1,100-token prompt (model card, one H100 with vLLM)</td></tr>
+    <tr><td>Licence</td><td>Apache 2.0</td><td>CC BY-NC 4.0: non-commercial use only without permission</td></tr>
+    <tr><td>Works with jevgrep</td><td>Yes, via the patched <code>laya</code> provider</td><td>Yes, via the patched <code>openjev</code> provider</td></tr>
+  </table>
+
+  <h3>Recommendation</h3>
+  <ul>
+    <li><b>Code search (a):</b> use OpenJev on a GPU server: vLLM on one 80 GB NVIDIA GPU, or a 24 GB card with the
+      GGUF build. The Mac is fine for testing but too slow for daily use. Check the licence before commercial use.</li>
+    <li><b>Tool picking (b):</b> {{rec_tools}}</li>
+    <li><b>Do not use Laya for code search.</b> It is trained on tickets and email, not source code.</li>
+  </ul>
+
+  <h3>Limits of these results</h3>
+  <ul>
+    <li>Retrieval quality only. jevgrep's own acceptance test, a coding agent solving the bug at lower cost, was not run.</li>
+    <li>The full search was run on one bug for OpenJev and two bugs for Laya.</li>
+    <li>OpenJev ran as the 4-bit build (about 0.6 points below the full model on its own benchmark).</li>
+    <li>Tool test: one correct tool per request and 20 tools per request, on one public benchmark.</li>
+    <li>"Jev" figures come from an earlier recorded run, not a paired live run.</li>
+  </ul>
+  <p class="note">Code, data and raw results: github.com/tabgab/jevgrep-laya, branch <code>laya-provider</code>, folder <code>evals/laya</code>.</p>
+</section>
+</body>
+</html>

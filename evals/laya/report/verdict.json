@@ -1,0 +1,6 @@
+{
+ "oj_tool_chip": "<span class=\"chip good\">✓ Suitable, best tested</span>",
+ "tools_headline": "OpenJev almost always picks the right tool. Laya is no better than keyword search.",
+ "tools_reading": "<b>OpenJev</b> put the right tool first in 98.5% of requests and in the top 3 in all 200. Among the near-miss candidates alone it chose correctly 99% of the time. <b>Laya</b> put it first in 87% and in the top 3 in 96%, level with keyword search. Its multilingual checkpoint did worse (75.5% first).",
+ "rec_tools": "use OpenJev when a GPU server is available: it put the right tool in the top 3 every time. Without a GPU, Laya or plain keyword search is a reasonable fast pre-filter for about 20 tools. Both put the right tool in the top 3 about 96% of the time, so send the LLM the top 3 to 5 tools, not just the first one."
+}

@@ -1,0 +1,56 @@
+{
+ "laya": {
+  "n": 200,
+  "top1": 0.87,
+  "top3": 0.9642105263157895,
+  "top5": 0.968421052631579,
+  "own_top1": 0.9216666666666666,
+  "seconds_median": 0.04,
+  "routing": {
+   "english": 200
+  },
+  "schema_bytes_all20": 10053,
+  "schema_bytes_top3": 1524
+ },
+ "laya-multilingual": {
+  "n": 200,
+  "top1": 0.755,
+  "top3": 0.9321052631578948,
+  "top5": 0.9592105263157895,
+  "own_top1": 0.8416666666666667,
+  "seconds_median": 0.02,
+  "routing": {
+   "multilingual": 200
+  },
+  "schema_bytes_all20": 10053,
+  "schema_bytes_top3": 1497
+ },
+ "openjev": {
+  "n": 200,
+  "top1": 0.985,
+  "top3": 1.0,
+  "top5": 1.0,
+  "own_top1": 0.99,
+  "seconds_median": 4.074999999999999,
+  "routing": {},
+  "schema_bytes_all20": 10053,
+  "schema_bytes_top3": 1515
+ },
+ "bm25": {
+  "n": 200,
+  "top1": 0.90775,
+  "top3": 0.9624166666666667,
+  "top5": 0.98375,
+  "own_top1": 0.9641666666666666,
+  "seconds_median": null,
+  "routing": {},
+  "schema_bytes_all20": 10053,
+  "schema_bytes_top3": 1510
+ },
+ "random": {
+  "top1": 0.05,
+  "top3": 0.15,
+  "top5": 0.25,
+  "own_top1": 0.38416666666666666
+ }
+}
