@@ -16,8 +16,8 @@ dist/
 !/evals/laya/
 /evals/laya/results/repos/
 /evals/laya/results/out/
-/evals/laya/results/jg-config/
-/evals/laya/results/jg-cache/
+/evals/laya/results/jg-config*/
+/evals/laya/results/jg-cache*/
 __pycache__/
 
 # Deprecated personal-repository evaluation tooling stays local.

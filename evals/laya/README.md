@@ -4,10 +4,15 @@
 
 - **Laya: not good enough.** It gives almost every file a high relevance score, so `jg`
   returns most of the repository instead of a short, focused packet.
-- **OpenJev: good enough in quality, too slow on a Mac.** It separates relevant files from other
-  files almost as a trained judge should. On the one full task tested, its packet was the same
-  size and shape as a recorded Jev packet. On an M3 Max the run took 3 hours 12 minutes, so
+- **OpenJev: good retrieval quality, too slow on a Mac.** It separates relevant files from other
+  files well (AUC 0.92 and 0.97). On the one full task tested, it returned a packet of
+  comparable size to a recorded Jev packet (5 files and 9,413 bytes, against 6 files and
+  6,880 bytes), centred on the same source. On an M3 Max the run took 3 hours 12 minutes, so
   practical use needs a GPU server (see [Speed](#speed)).
+
+These are retrieval-level results: ten tasks for the classifier test and one full `jg` run.
+jevgrep's own acceptance measure is a downstream coding-agent solve at lower cost
+(`evals/cost-quality-policy.md`). That measure was not run.
 
 Both models plug into jevgrep through the same `/v1/systemone` protocol as Jev. No Jev API key
 was used. The comparisons with Jev use results that are already recorded in this repository.
@@ -97,7 +102,8 @@ excerpts to leave out, which BM25 cannot do.
 
 The OpenJev Mac helper runs one forward pass per question, one question at a time, with no
 prefix caching. It processed about 115 to 150 prompt tokens per second, or 25 to 40 s for one
-file question. The model card reports 227 ms for a 1,100-token prompt on one H100 with vLLM and
+file question. With calls of 4 questions, the longest call in the final run took 216 s, inside
+Node's 300 s header limit. The model card reports 227 ms for a 1,100-token prompt on one H100 with vLLM and
 prefix caching. Wall time on the Mac therefore says nothing about a served deployment. Do not
 compare the Laya and OpenJev times as evidence about the models: the hardware paths and the
 question counts differ.
@@ -157,11 +163,12 @@ echo local-laya-key | XDG_CONFIG_HOME=evals/laya/results/jg-config \
 python3 evals/laya/stageB.py psf__requests-1142
 ```
 
-OpenJev on Apple silicon (`helper/` comes from the `openjev/openjev` repository):
+OpenJev on Apple silicon:
 
 ```sh
 python -m pip install mlx-lm transformers "openai==3.16.2" "httpx==0.28.1"
 hf download openjev/openjev-MLX-4bit --local-dir models/openjev-MLX-4bit
+hf download openjev/openjev --include "helper/*" --local-dir .   # helper/shim.py, helper/shim_mlx.py
 M=models/openjev-MLX-4bit
 READOUT_T=0.85 READOUT_NOUL_T=1.829074 READOUT_NOUL_BIAS=0 READOUT_TARGETED=1 \
 READOUT_INSTR_STYLE=pyrepr SHIM_STAGGER=1 TOKENIZER=$M SHIM_MODEL=$M SHIM_TOKEN=local-openjev-key \
