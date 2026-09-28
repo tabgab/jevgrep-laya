@@ -1,0 +1,253 @@
+Jevgrep: 5 relevant files.
+AGENTS.md lookup (root and returned-file ancestors): none found.
+- "requests/models.py" — implementation, caller, helper; selected source and structural context below
+  Reading lead Request.prepare: lines 216-231
+  Reading lead PreparedRequest.prepare_body: lines 332-386
+  Reading lead PreparedRequest.prepare_content_length: lines 388-395
+  Reading lead PreparedRequest.prepare_auth: lines 397-411
+- "requests/sessions.py" — caller, helper; file passed relevance threshold; no confident excerpt selected — inspect this file directly
+- "requests/adapters.py" — caller, helper; file passed relevance threshold; no confident excerpt selected — inspect this file directly
+  Reading lead HTTPAdapter.send: lines 149-221
+- "test_requests.py" — caller, test, fixture, helper; selected source and structural context below
+  Reading lead httpbin: lines 21-23
+- "requests/utils.py" — caller, helper; selected source and structural context below
+  Reading lead super_len: lines 41-47
+End file list.
+
+Source block "requests/models.py" lines 154-182:
+154:             return False
+155: 
+156: 
+157: class Request(RequestHooksMixin):
+158:     """A user-created :class:`Request <Request>` object.
+159: 
+160:     Used to prepare a :class:`PreparedRequest <PreparedRequest>`, which is sent to the server.
+161: 
+162:     :param method: HTTP method to use.
+163:     :param url: URL to send.
+164:     :param headers: dictionary of headers to send.
+165:     :param files: dictionary of {filename: fileobject} files to multipart upload.
+166:     :param data: the body to attach the request. If a dictionary is provided, form-encoding will take place.
+167:     :param params: dictionary of URL parameters to append to the URL.
+168:     :param auth: Auth handler or (user, pass) tuple.
+169:     :param cookies: dictionary or CookieJar of cookies to attach to this request.
+170:     :param hooks: dictionary of callback hooks, for internal usage.
+171: 
+172:     Usage::
+173: 
+174:       >>> import requests
+175:       >>> req = requests.Request('GET', 'http://httpbin.org/get')
+176:       >>> req.prepare()
+177:       <PreparedRequest [GET]>
+178: 
+179:     """
+180:     def __init__(self,
+181:         method=None,
+182:         url=None,
+
+Source block "requests/models.py" lines 210-217:
+210:         self.cookies = cookies
+211:         self.hooks = hooks
+212: 
+213:     def __repr__(self):
+214:         return '<Request [%s]>' % (self.method)
+215: 
+216:     def prepare(self):
+217:         """Constructs a :class:`PreparedRequest <PreparedRequest>` for transmission and returns it."""
+
+Source block "requests/models.py" lines 228-260:
+228:         # This MUST go after prepare_auth. Authenticators could add a hook
+229:         p.prepare_hooks(self.hooks)
+230: 
+231:         return p
+232: 
+233: 
+234: class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
+235:     """The fully mutable :class:`PreparedRequest <PreparedRequest>` object,
+236:     containing the exact bytes that will be sent to the server.
+237: 
+238:     Generated from either a :class:`Request <Request>` object or manually.
+239: 
+240:     Usage::
+241: 
+242:       >>> import requests
+243:       >>> req = requests.Request('GET', 'http://httpbin.org/get')
+244:       >>> r = req.prepare()
+245:       <PreparedRequest [GET]>
+246: 
+247:       >>> s = requests.Session()
+248:       >>> s.send(r)
+249:       <Response [200]>
+250: 
+251:     """
+252: 
+253:     def __init__(self):
+254:         #: HTTP verb to send to the server.
+255:         self.method = None
+256:         #: HTTP URL to send the request to.
+257:         self.url = None
+258:         #: dictionary of HTTP headers.
+259:         self.headers = None
+260:         #: request body to send to the server.
+
+Source block "requests/models.py" lines 262-276:
+262:         #: dictionary of callback hooks, for internal usage.
+263:         self.hooks = default_hooks()
+264: 
+265:     def __repr__(self):
+266:         return '<PreparedRequest [%s]>' % (self.method)
+267: 
+268:     def prepare_method(self, method):
+269:         """Prepares the given HTTP method."""
+270:         self.method = method
+271:         if self.method is not None:
+272:             self.method = self.method.upper()
+273: 
+274:     def prepare_url(self, url, params):
+275:         """Prepares the given HTTP URL."""
+276:         #: Accept objects that have string representations.
+
+Source block "requests/models.py" lines 318-432:
+318:             else:
+319:                 query = enc_params
+320: 
+321:         url = requote_uri(urlunparse([scheme, netloc, path, _params, query, fragment]))
+322:         self.url = url
+323: 
+324:     def prepare_headers(self, headers):
+325:         """Prepares the given HTTP headers."""
+326: 
+327:         if headers:
+328:             self.headers = CaseInsensitiveDict(headers)
+329:         else:
+330:             self.headers = CaseInsensitiveDict()
+331: 
+332:     def prepare_body(self, data, files):
+333:         """Prepares the given HTTP body data."""
+334: 
+335:         # Check if file, fo, generator, iterator.
+336:         # If not, run through normal process.
+337: 
+338:         # Nottin' on you.
+339:         body = None
+340:         content_type = None
+341:         length = None
+342:         is_stream = False
+343: 
+344:         is_stream = all([
+345:             hasattr(data, '__iter__'),
+346:             not isinstance(data, basestring),
+347:             not isinstance(data, dict)
+348:         ])
+349: 
+350:         try:
+351:             length = str(super_len(data))
+352:         except (TypeError, AttributeError):
+353:             length = False
+354: 
+355:         if is_stream:
+356:             body = data
+357: 
+358:             if files:
+359:                 raise NotImplementedError('Streamed bodies and files are mutually exclusive.')
+360: 
+361:             if length:
+362:                 self.headers['Content-Length'] = length
+363:             else:
+364:                 self.headers['Transfer-Encoding'] = 'chunked'
+365:         # Check if file, fo, generator, iterator.
+366:         # If not, run through normal process.
+367: 
+368:         else:
+369:             # Multi-part file uploads.
+370:             if files:
+371:                 (body, content_type) = self._encode_files(files, data)
+372:             else:
+373:                 if data:
+374:                     body = self._encode_params(data)
+375:                     if isinstance(data, str) or isinstance(data, builtin_str) or hasattr(data, 'read'):
+376:                         content_type = None
+377:                     else:
+378:                         content_type = 'application/x-www-form-urlencoded'
+379: 
+380:             self.prepare_content_length(body)
+381: 
+382:             # Add content-type if it wasn't explicitly provided.
+383:             if (content_type) and (not 'content-type' in self.headers):
+384:                 self.headers['Content-Type'] = content_type
+385: 
+386:         self.body = body
+387: 
+388:     def prepare_content_length(self, body):
+389:         self.headers['Content-Length'] = '0'
+390:         if hasattr(body, 'seek') and hasattr(body, 'tell'):
+391:             body.seek(0, 2)
+392:             self.headers['Content-Length'] = str(body.tell())
+393:             body.seek(0, 0)
+394:         elif body is not None:
+395:             self.headers['Content-Length'] = str(len(body))
+396: 
+397:     def prepare_auth(self, auth):
+398:         """Prepares the given HTTP auth data."""
+399:         if auth:
+400:             if isinstance(auth, tuple) and len(auth) == 2:
+401:                 # special-case basic HTTP auth
+402:                 auth = HTTPBasicAuth(*auth)
+403: 
+404:             # Allow auth to make its changes.
+405:             r = auth(self)
+406: 
+407:             # Update self to reflect the auth changes.
+408:             self.__dict__.update(r.__dict__)
+409: 
+410:             # Recompute Content-Length
+411:             self.prepare_content_length(self.body)
+412: 
+413:     def prepare_cookies(self, cookies):
+414:         """Prepares the given HTTP cookie data."""
+415: 
+416:         if isinstance(cookies, cookielib.CookieJar):
+417:             cookies = cookies
+418:         else:
+419:             cookies = cookiejar_from_dict(cookies)
+420: 
+421:         if 'cookie' not in self.headers:
+422:             cookie_header = get_cookie_header(cookies, self)
+423:             if cookie_header is not None:
+424:                 self.headers['Cookie'] = cookie_header
+425: 
+426:     def prepare_hooks(self, hooks):
+427:         """Prepares the given hooks."""
+428:         for event in hooks:
+429:             self.register_hook(event, hooks[event])
+430: 
+431: 
+432: class Response(object):
+
+Source block "test_requests.py" lines 18-26:
+18: 
+19: HTTPBIN = os.environ.get('HTTPBIN_URL', 'http://httpbin.org/')
+20: 
+21: def httpbin(*suffix):
+22:     """Returns url for HTTPBIN resource."""
+23:     return HTTPBIN + '/'.join(suffix)
+24: 
+25: class RequestsTestCase(unittest.TestCase):
+26: 
+
+Source block "requests/utils.py" lines 38-50:
+38: 
+39:     return d
+40: 
+41: def super_len(o):
+42:     if hasattr(o, '__len__'):
+43:         return len(o)
+44:     if hasattr(o, 'len'):
+45:         return o.len
+46:     if hasattr(o, 'fileno'):
+47:         return os.fstat(o.fileno()).st_size
+48: 
+49: def get_netrc_auth(url):
+50:     """Returns the Requests tuple auth for a given url from netrc."""
+
+End context.

@@ -1,0 +1,29 @@
+{
+ "psf__requests-1142": {
+  "exit": 0,
+  "seconds": 11537,
+  "requests": 135,
+  "returned": 5,
+  "files": [
+   "requests/models.py",
+   "requests/sessions.py",
+   "requests/adapters.py",
+   "test_requests.py",
+   "requests/utils.py"
+  ],
+  "summary": [
+   "Jevgrep: 5 relevant files.",
+   "AGENTS.md lookup (root and returned-file ancestors): none found."
+  ],
+  "gold_found": [
+   "requests/models.py"
+  ],
+  "gold_total": 1,
+  "test_found": [
+   "test_requests.py"
+  ],
+  "test_total": 1,
+  "bm25_gold_at_n": 1,
+  "bm25_n": 10
+ }
+}
