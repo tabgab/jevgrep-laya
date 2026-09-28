@@ -41,8 +41,10 @@ export const providers = {
     // question at a time, so a 16-question batch can take minutes.
     navigationBatch: { items: 16, bytes: 24_000 },
     // Node's fetch waits at most 300 s for response headers; four questions stay well inside.
+    // The helper answers one call at a time, so a second concurrent call would only queue
+    // behind the first and could run past that limit.
     questionsPerCall: 4,
-    concurrency: 2,
+    concurrency: 1,
     timeoutMs: 1_800_000,
   },
 } as const;
