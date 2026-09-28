@@ -1,0 +1,1286 @@
+[
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/models.py",
+  "label": "gold",
+  "single": 0.9758
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "test_requests.py",
+  "label": "gold",
+  "single": 0.6183
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/__init__.py",
+  "label": "sibling",
+  "single": 0.1182
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "setup.py",
+  "label": "sibling",
+  "single": 0.0283
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/auth.py",
+  "label": "sibling",
+  "single": 0.0386
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/structures.py",
+  "label": "sibling",
+  "single": 0.0658
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/sessions.py",
+  "label": "sibling",
+  "single": 0.7241
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/cookies.py",
+  "label": "sibling",
+  "single": 0.0486
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/certs.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/compat.py",
+  "label": "sibling",
+  "single": 0.0206
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/api.py",
+  "label": "sibling",
+  "single": 0.4008
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/exceptions.py",
+  "label": "sibling",
+  "single": 0.0074
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/urllib3/packages/ordered_dict.py",
+  "label": "random",
+  "single": 0.0151
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/urllib3/poolmanager.py",
+  "label": "random",
+  "single": 0.136
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/charade/euckrfreq.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/charade/sbcharsetprober.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/charade/mbcssm.py",
+  "label": "random",
+  "single": 0.0071
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/urllib3/contrib/ntlmpool.py",
+  "label": "random",
+  "single": 0.0658
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/charade/charsetprober.py",
+  "label": "random",
+  "single": 0.0068
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/charade/latin1prober.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/hooks.py",
+  "label": "random",
+  "single": 0.0163
+ },
+ {
+  "task": "psf__requests-1142",
+  "path": "requests/packages/urllib3/connectionpool.py",
+  "label": "random",
+  "single": 0.4799
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/text.py",
+  "label": "gold",
+  "single": 0.8096
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tests/test_text.py",
+  "label": "gold",
+  "single": 0.8331
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tests/test_ft2font.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tests/test_polar.py",
+  "label": "sibling",
+  "single": 0.3629
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tests/test_backend_tk.py",
+  "label": "sibling",
+  "single": 0.0077
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/contour.py",
+  "label": "sibling",
+  "single": 0.0486
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tests/test_matplotlib.py",
+  "label": "sibling",
+  "single": 0.0086
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/stackplot.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/backend_tools.py",
+  "label": "sibling",
+  "single": 0.0119
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/_docstring.py",
+  "label": "sibling",
+  "single": 0.0086
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/colorbar.py",
+  "label": "sibling",
+  "single": 0.0151
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/backend_managers.py",
+  "label": "sibling",
+  "single": 0.0077
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "galleries/examples/animation/random_walk.py",
+  "label": "random",
+  "single": 0.0128
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "galleries/examples/lines_bars_and_markers/fill_between_demo.py",
+  "label": "random",
+  "single": 0.0071
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "galleries/examples/images_contours_and_fields/colormap_normalizations.py",
+  "label": "random",
+  "single": 0.0071
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "galleries/examples/subplots_axes_and_figures/figure_title.py",
+  "label": "random",
+  "single": 0.0139
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tri/trifinder.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/_internal_utils.py",
+  "label": "random",
+  "single": 0.008
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/testing/jpl_units/__init__.py",
+  "label": "random",
+  "single": 0.008
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "lib/matplotlib/tests/test_collections.py",
+  "label": "random",
+  "single": 0.0191
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "galleries/examples/axisartist/demo_ticklabel_alignment.py",
+  "label": "random",
+  "single": 0.0083
+ },
+ {
+  "task": "matplotlib__matplotlib-26466",
+  "path": "galleries/examples/statistics/histogram_cumulative.py",
+  "label": "random",
+  "single": 0.0139
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/base/schema.py",
+  "label": "gold",
+  "single": 0.939
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/oracle/features.py",
+  "label": "gold",
+  "single": 0.0885
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/sqlite3/schema.py",
+  "label": "gold",
+  "single": 0.1182
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/models/fields/related.py",
+  "label": "gold",
+  "single": 0.3092
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/migrations/test_base.py",
+  "label": "gold",
+  "single": 0.3445
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/migrations/test_operations.py",
+  "label": "gold",
+  "single": 0.5401
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/sqlite3/features.py",
+  "label": "sibling",
+  "single": 0.1024
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/oracle/schema.py",
+  "label": "sibling",
+  "single": 0.4203
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/migrations/test_exceptions.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/base/introspection.py",
+  "label": "sibling",
+  "single": 0.0658
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/migrations/routers.py",
+  "label": "sibling",
+  "single": 0.0223
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/oracle/functions.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/oracle/creation.py",
+  "label": "sibling",
+  "single": 0.0077
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/migrations/test_graph.py",
+  "label": "sibling",
+  "single": 0.0074
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/models/fields/json.py",
+  "label": "sibling",
+  "single": 0.0191
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/db/backends/oracle/client.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/utils_tests/test_tree.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/urlpatterns_reverse/urls_error_handlers.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/migrate_signals/tests.py",
+  "label": "random",
+  "single": 0.0139
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/user_commands/management/commands/hal.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/views/generic/__init__.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/gis_tests/test_data.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/datetimes/tests.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/template_tests/filter_tests/test_truncatewords.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "django/contrib/gis/utils/ogrinfo.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "django__django-15629",
+  "path": "tests/dbshell/tests.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/_split.py",
+  "label": "gold",
+  "single": 0.9291
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/tests/test_split.py",
+  "label": "gold",
+  "single": 0.9476
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/_validation.py",
+  "label": "sibling",
+  "single": 0.1457
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/tests/common.py",
+  "label": "sibling",
+  "single": 0.0386
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/tests/test_search.py",
+  "label": "sibling",
+  "single": 0.2165
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/_search.py",
+  "label": "sibling",
+  "single": 0.045
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/__init__.py",
+  "label": "sibling",
+  "single": 0.0764
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/model_selection/tests/test_validation.py",
+  "label": "sibling",
+  "single": 0.5797
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "examples/mixture/plot_gmm_sin.py",
+  "label": "random",
+  "single": 0.0071
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/utils/tests/test_extmath.py",
+  "label": "random",
+  "single": 0.0083
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/externals/joblib/format_stack.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/metrics/tests/test_ranking.py",
+  "label": "random",
+  "single": 0.0086
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/neural_network/multilayer_perceptron.py",
+  "label": "random",
+  "single": 0.0176
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "examples/linear_model/plot_ridge_path.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "examples/decomposition/plot_ica_blind_source_separation.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/utils/_scipy_sparse_lsqr_backport.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "examples/cluster/plot_ward_structured_vs_unstructured.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "scikit-learn__scikit-learn-13124",
+  "path": "sklearn/cross_decomposition/tests/test_pls.py",
+  "label": "random",
+  "single": 0.008
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/wcs/wcsapi/wrappers/sliced_wcs.py",
+  "label": "gold",
+  "single": 0.9583
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/wcs/wcsapi/wrappers/tests/test_sliced_wcs.py",
+  "label": "gold",
+  "single": 0.9583
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/wcs/wcsapi/wrappers/base.py",
+  "label": "sibling",
+  "single": 0.3817
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/io/votable/validator/main.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/coordinates/distances.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/cosmology/tests/helper.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/utils/shapes.py",
+  "label": "random",
+  "single": 0.0261
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/io/ascii/ecsv.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/units/format/base.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/coordinates/tests/test_matrix_utilities.py",
+  "label": "random",
+  "single": 0.0191
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/cosmology/io/row.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/io/fits/tests/test_table.py",
+  "label": "random",
+  "single": 0.0093
+ },
+ {
+  "task": "astropy__astropy-13579",
+  "path": "astropy/io/misc/asdf/tags/transform/tests/test_units_mapping.py",
+  "label": "random",
+  "single": 0.0083
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/codegen.py",
+  "label": "gold",
+  "single": 0.8543
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/tests/test_codegen.py",
+  "label": "gold",
+  "single": 0.755
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/tests/test_source.py",
+  "label": "sibling",
+  "single": 0.0071
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/enumerative.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/iterables.py",
+  "label": "sibling",
+  "single": 0.0128
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/tests/test_code_quality.py",
+  "label": "sibling",
+  "single": 0.009
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/tests/test_iterables.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/lambdify.py",
+  "label": "sibling",
+  "single": 0.4599
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/source.py",
+  "label": "sibling",
+  "single": 0.0071
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/timeutils.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/tmpfiles.py",
+  "label": "sibling",
+  "single": 0.0242
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/utilities/randtest.py",
+  "label": "sibling",
+  "single": 0.0071
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/plotting/__init__.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/series/tests/test_demidovich.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/geometry/tests/test_plane.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/integrals/rubi/parsetools/generate_rules.py",
+  "label": "random",
+  "single": 0.0068
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/simplify/tests/test_radsimp.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/polys/tests/test_orderings.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/combinatorics/tests/test_prufer.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/integrals/tests/test_quadrature.py",
+  "label": "random",
+  "single": 0.0119
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/functions/special/tests/test_spherical_harmonics.py",
+  "label": "random",
+  "single": 0.0242
+ },
+ {
+  "task": "sympy__sympy-16792",
+  "path": "sympy/physics/quantum/tests/test_gate.py",
+  "label": "random",
+  "single": 0.009
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/domains/python.py",
+  "label": "gold",
+  "single": 0.9291
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_domain_py.py",
+  "label": "gold",
+  "single": 0.9291
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_util_docutils.py",
+  "label": "sibling",
+  "single": 0.0114
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_environment_toctree.py",
+  "label": "sibling",
+  "single": 0.0114
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_util.py",
+  "label": "sibling",
+  "single": 0.0093
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_config.py",
+  "label": "sibling",
+  "single": 0.0128
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_util_template.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/domains/c.py",
+  "label": "sibling",
+  "single": 0.0486
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_ext_apidoc.py",
+  "label": "sibling",
+  "single": 0.0357
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_theming.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_catalogs.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_ext_autodoc_autofunction.py",
+  "label": "sibling",
+  "single": 0.0823
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/locale/__init__.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/config.py",
+  "label": "random",
+  "single": 0.0163
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/builders/epub3.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/test_ext_autodoc_automodule.py",
+  "label": "random",
+  "single": 0.136
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/roots/test-latex-includegraphics/conf.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/builders/html/__init__.py",
+  "label": "random",
+  "single": 0.0261
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/roots/test-ext-viewcode/conf.py",
+  "label": "random",
+  "single": 0.045
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/roots/test-ext-autosummary-skip-member/target.py",
+  "label": "random",
+  "single": 0.0261
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "sphinx/builders/xml.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "sphinx-doc__sphinx-8638",
+  "path": "tests/conftest.py",
+  "label": "random",
+  "single": 0.0764
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/python.py",
+  "label": "gold",
+  "single": 0.9434
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_collection.py",
+  "label": "gold",
+  "single": 0.8331
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_skipping.py",
+  "label": "gold",
+  "single": 0.0176
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/nose.py",
+  "label": "sibling",
+  "single": 0.0261
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/warning_types.py",
+  "label": "sibling",
+  "single": 0.0417
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/faulthandler.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_terminal.py",
+  "label": "sibling",
+  "single": 0.1182
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_nodes.py",
+  "label": "sibling",
+  "single": 0.1268
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/acceptance_test.py",
+  "label": "sibling",
+  "single": 0.5797
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_resultlog.py",
+  "label": "sibling",
+  "single": 0.033
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_runner_xunit.py",
+  "label": "sibling",
+  "single": 0.0283
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_runner.py",
+  "label": "sibling",
+  "single": 0.0764
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/main.py",
+  "label": "sibling",
+  "single": 0.939
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/mark/__init__.py",
+  "label": "random",
+  "single": 0.0139
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "extra/setup-py.test/setup.py",
+  "label": "random",
+  "single": 0.0163
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/junitxml.py",
+  "label": "random",
+  "single": 0.0139
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/terminal.py",
+  "label": "random",
+  "single": 0.0128
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/python/integration.py",
+  "label": "random",
+  "single": 0.11
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "src/_pytest/_code/code.py",
+  "label": "random",
+  "single": 0.0191
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_entry_points.py",
+  "label": "random",
+  "single": 0.0077
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "doc/en/example/fixtures/test_fixtures_order.py",
+  "label": "random",
+  "single": 0.0074
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "testing/test_assertrewrite.py",
+  "label": "random",
+  "single": 0.2165
+ },
+ {
+  "task": "pytest-dev__pytest-6197",
+  "path": "doc/en/example/py2py3/conftest.py",
+  "label": "random",
+  "single": 0.0566
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/variables.py",
+  "label": "gold",
+  "single": 0.9342
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/constants.py",
+  "label": "gold",
+  "single": 0.0139
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/checkers/unittest_variables.py",
+  "label": "gold",
+  "single": 0.5201
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/async.py",
+  "label": "sibling",
+  "single": 0.008
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/format.py",
+  "label": "sibling",
+  "single": 0.0139
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/checkers/unittest_python3.py",
+  "label": "sibling",
+  "single": 0.0386
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/misc.py",
+  "label": "sibling",
+  "single": 0.0097
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/checkers/unittest_exceptions.py",
+  "label": "sibling",
+  "single": 0.0128
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/deprecated.py",
+  "label": "sibling",
+  "single": 0.0139
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/checkers/unittest_logging.py",
+  "label": "sibling",
+  "single": 0.0105
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/exceptions.py",
+  "label": "sibling",
+  "single": 0.0151
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/checkers/unittest_typecheck.py",
+  "label": "sibling",
+  "single": 0.0764
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/checkers/python3.py",
+  "label": "sibling",
+  "single": 0.0417
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/a/arguments.py",
+  "label": "random",
+  "single": 0.0176
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/a/assign/assignment_from_no_return.py",
+  "label": "random",
+  "single": 0.011
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "doc/exts/pylint_features.py",
+  "label": "random",
+  "single": 0.0097
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/conftest.py",
+  "label": "random",
+  "single": 0.136
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/m/misplaced_bare_raise.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "pylint/reporters/ureports/__init__.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/g/generic_alias/generic_alias_postponed_evaluation_py37.py",
+  "label": "random",
+  "single": 0.2304
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/g/generic_alias/generic_alias_typing.py",
+  "label": "random",
+  "single": 0.2601
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/r/regression/regression_4612_crash_pytest_fixture.py",
+  "label": "random",
+  "single": 0.0191
+ },
+ {
+  "task": "pylint-dev__pylint-4604",
+  "path": "tests/functional/e/exec_used_py3.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/core/dataset.py",
+  "label": "gold",
+  "single": 0.5
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/core/variable.py",
+  "label": "gold",
+  "single": 0.6734
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_dataarray.py",
+  "label": "gold",
+  "single": 0.6183
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/core/concat.py",
+  "label": "sibling",
+  "single": 0.0176
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/core/nanops.py",
+  "label": "sibling",
+  "single": 0.1268
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_cftime_offsets.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_options.py",
+  "label": "sibling",
+  "single": 0.8217
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_accessor_dt.py",
+  "label": "sibling",
+  "single": 0.011
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_nputils.py",
+  "label": "sibling",
+  "single": 0.008
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_variable.py",
+  "label": "sibling",
+  "single": 0.2923
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_interp.py",
+  "label": "sibling",
+  "single": 0.0386
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/core/npcompat.py",
+  "label": "sibling",
+  "single": 0.0417
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_backends_file_manager.py",
+  "label": "sibling",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/backends/file_manager.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_merge.py",
+  "label": "random",
+  "single": 0.0151
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/_version.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "asv_bench/benchmarks/unstacking.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_backends_locks.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "doc/gallery/plot_control_colorbar.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/core/formatting.py",
+  "label": "random",
+  "single": 0.0176
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "properties/test_encode_decode.py",
+  "label": "random",
+  "single": 0.0083
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "doc/gallery/plot_cartopy_facetgrid.py",
+  "label": "random",
+  "single": 0.0065
+ },
+ {
+  "task": "pydata__xarray-3305",
+  "path": "xarray/tests/test_plot.py",
+  "label": "random",
+  "single": 0.0128
+ }
+]
